@@ -14,8 +14,8 @@ typedef struct node
 node *mknode(char *token, node *left, node *right);
 void printtree(node *tree);
 #define YYSTRPE struct node*
-%
-}
+
+%}
 
 %token	NUM,PLUS,MINUS
 %left	PLUS,MINUS
