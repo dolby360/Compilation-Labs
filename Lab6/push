@@ -1,0 +1,40 @@
+#!/bin/bash
+
+pushFlag=0
+commitMessage=''
+files=''
+
+temp=$(getopt -o p: -l "push:" -- "$@")
+
+if [ $? != 0 ];then
+    exit 1;
+fi
+
+eval set -- "$temp"
+
+while true; do
+    case "$1" in
+    -p| --push) pushFlag=1; shift; commitMessage="$1"; 
+    break;;
+    --)break;;
+    *) echo "Unknown command"; exit 1;;
+    esac
+done
+
+for file in /home/user/* /home/user/**/* ; do
+	var=${file##*/}
+done
+
+for word in $var
+do
+	git add $var
+	echo "Added the file :" $word
+done
+
+if [ "$pushFlag" = 1 ];then
+   #echo all commit messages to the screen.
+    echo  $commitMessage 
+    git commit -m "$commitMessage"
+    git push -u origin master
+    git remote -v
+fi

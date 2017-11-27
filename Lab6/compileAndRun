@@ -1,0 +1,19 @@
+#!/bin/bash
+
+echo "**********"
+echo ""
+
+rm lex.yy.c y.tab.c Program
+
+if [ "$?" -eq "0" ]
+	then echo "  files deleted"
+	else echo "  Not all files deleted"
+fi
+
+echo ""
+echo "**********"
+
+lex lex.l
+yacc -d parser.y
+cc -o Program y.tab.c -ll -Ly
+./Program<text.t
