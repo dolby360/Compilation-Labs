@@ -13,6 +13,7 @@ else            {return KEY_ELSE;}
 \;              {return SEMICOLON;}
 \=              {return ASSIGN;}
 \=\=            {return EQ;}
+0|[1-9][0-9]*	{return INT;}
 [a-zA-Z][a-zA-Z0-9_]*			{return IDENTIFIER;}
 .				{return yytext[0];}
 .|\n

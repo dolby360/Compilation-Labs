@@ -17,25 +17,30 @@
 %token IDENTIFIER
 %token EQ
 %token ASSIGN
+%token INT
 
 %%
-S:      KEY_IF PARAN_O EXPR PARAN_C |KEY_IF PARAN_O EXPR PARAN_C BRA_O BLOCK BRA_C KEY_ELSE BRA_O BLOCK BRA_C;
+S:      {printf("if (");} KEY_IF  PARAN_O EXPR {printf(")");} PARAN_C BRA_O BLOCK BRA_C 
+        |KEY_IF PARAN_O EXPR PARAN_C BRA_O BLOCK BRA_C KEY_ELSE BRA_O BLOCK BRA_C
+        |{printf("");};
+
 EXPR:   IDENTIFIER EQ IDENTIFIER {printf(" %s == %s ",yytext,yytext);};
-BLOCK:;
-%%
+        
+BLOCK:  BLOCK ASS|ASS;
 
+ASS:    IDENTIFIER ASSIGN IDENTIFIER SEMICOLON
+        |IDENTIFIER ASSIGN INT SEMICOLON;
+
+
+%%
 
 #include "lex.yy.c"
 main(){
-
-    //BRA_O BLOCK BRA_C
-
     return yyparse();
 }
 
 void yyerror(const char *c){
 	fprintf(stderr,"line %d: %s\n",yylineno - 1,c);
-	
 }
 
 
